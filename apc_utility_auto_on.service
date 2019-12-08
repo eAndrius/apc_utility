@@ -1,0 +1,15 @@
+[Unit]
+Description=Power on APC PDU outlet before reboot
+Requires=network.target
+DefaultDependencies=no
+Before=shutdown.target reboot.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+EnvironmentFile=/etc/default/apc_utility_auto_onoff.conf
+ExecStart=/bin/true
+ExecStop=/usr/bin/apc_utility ${HOSTNAME} ${USERNAME} ${PASSWORD} "olOn ${OUTLET}"
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+#!/usr/bin/expect
+
+set timeout 5
+
+set host [lindex $argv 0]
+set user [lindex $argv 1]
+set password [lindex $argv 2]
+set cmd [lindex $argv 3]
+
+send_user "Command: $cmd\n"
+spawn telnet $host
+
+expect "User Name : " { send "$user\r" }
+expect "Password  : " { send "$password\r" }
+
+expect "Schneider Electric*" { send "$cmd\r"}
+
+expect "E000: Success*" { send "quit\r" }

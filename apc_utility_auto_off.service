@@ -1,0 +1,10 @@
+[Unit]
+Description=Power off APC PDU outlet after set time since boot
+Requires=network.target
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+EnvironmentFile=/etc/default/apc_utility_auto_onoff.conf
+ExecStart=/usr/bin/apc_utility ${HOSTNAME} ${USERNAME} ${PASSWORD} "olOff ${OUTLET}"

@@ -1,0 +1,8 @@
+[Unit]
+Description=Power off APC PDU outlet after set time since boot
+
+[Timer]
+OnBootSec=3h
+
+[Install]
+WantedBy=timers.target
